@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>于桐翻译</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+  
+<h1>于桐翻译</h1>
+	  <p>提问后请刷新删除上一次的翻译结果(有bug懒得修)</p>
+
+    <input type="text" id="question" placeholder="请输入需要翻译的短语/句子">
+    <button onclick="han()">英-汉</button>
+    <button onclick="getTextAnswer()">汉-英</button>
+    <p id="answer"></p >
+	  	  
+
+    <script>
+      function getTextAnswer() {
+        const question = document.getElementById("question").value;
+        const answer = "翻译结果:English";
+		
+
+        document.getElementById("answer").innerHTML = answer;
+      }
+		function han() {
+        const question = document.getElementById("question").value;
+        const answer = "翻译结果:汉语";
+		
+
+        document.getElementById("answer").innerHTML = answer;
+      }
+
+      function getVoiceAnswer() {
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = "zh-CN";
+
+        recognition.onresult = function(event) {
+          const result = event.results[0][0].transcript;
+          document.getElementById("question").value = result;
+          getTextAnswer();
+        }
+
+        recognition.onerror = function(event) {
+          console.error(event.error);
+        }
+
+        recognition.start();
+      }
+    </script>
+  </body>
+</html>
